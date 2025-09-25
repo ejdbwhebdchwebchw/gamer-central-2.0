@@ -1,0 +1,106 @@
+version: 2
+updates:
+  # Backend Node (npm)
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
+    assignees:
+      - "ejdbwhebdchwebchw"
+    reviewers:
+      - "ejdbwhebdchwebchw"
+    allow:
+      - dependency-type: "all"
+    # Only automerge patch & minor security updates
+    automerge: true
+    automerge-type: "pr"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # Frontend Node (npm)
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 20
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
+    assignees:
+      - "ejdbwhebdchwebchw"
+    reviewers:
+      - "ejdbwhebdchwebchw"
+    allow:
+      - dependency-type: "all"
+    automerge: true
+    automerge-type: "pr"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "github-actions"
+      - "security"
+    assignees:
+      - "ejdbwhebdchwebchw"
+    reviewers:
+      - "ejdbwhebdchwebchw"
+    automerge: true
+    automerge-type: "pr"
+
+  # Docker support (if you add Dockerfiles)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "02:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "docker"
+      - "security"
+    assignees:
+      - "ejdbwhebdchwebchw"
+    reviewers:
+      - "ejdbwhebdchwebchw"
+    automerge: true
+    automerge-type: "pr"
+
+# Enable rebase strategy for always-fresh PRs
+rebase-strategy: "auto"
+
+# Enable vulnerability alerts in GitHub security dashboard (if not already on)
+enable-beta-ecosystems: true
+
+# Optionally, add more ecosystems (uncomment if used)
+#  - package-ecosystem: "pip"
+#    directory: "/"
+#    schedule:
+#      interval: "daily"
+#  - package-ecosystem: "bundler"
+#    directory: "/"
+#    schedule:
+#      interval: "daily"
