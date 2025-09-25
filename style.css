@@ -1,17 +1,100 @@
 body {
   font-family: Arial, sans-serif;
   margin: 2rem;
-  background: #f7f9fa;
+  background: linear-gradient(120deg, #f7f9fa, #e3e7fc 80%);
+  min-height: 100vh;
 }
 h1 {
   color: #212121;
+  background: linear-gradient(90deg, #ff512f, #dd2476, #1fa2ff, #12d8fa, #a6ffcb);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 4s ease-in-out infinite;
+  text-align: center;
 }
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 form {
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+button[type="submit"] {
+  background: linear-gradient(90deg, #12d8fa, #a6ffcb);
+  border: none;
+  border-radius: 8px;
+  color: #222;
+  font-size: 1rem;
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(18,216,250,0.10);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+button[type="submit"]:hover, button[type="submit"]:focus {
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 4px 18px 0 #12d8fa88;
+  outline: none;
+}
+
+#gamesList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
 }
 #gamesList li {
   margin-bottom: 0.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.7s cubic-bezier(.17,.67,.83,.67) forwards;
+}
+#gamesList li:nth-child(1) { animation-delay: 0.05s;}
+#gamesList li:nth-child(2) { animation-delay: 0.12s;}
+#gamesList li:nth-child(3) { animation-delay: 0.19s;}
+#gamesList li:nth-child(4) { animation-delay: 0.26s;}
+#gamesList li:nth-child(5) { animation-delay: 0.33s;}
+/* ...for more, JS will add inline style */
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+#gamesList button {
+  background: #fff;
+  border: 2px solid #12d8fa;
+  border-radius: 8px;
+  padding: 0.3em 1em;
+  color: #12d8fa;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 1px 6px #12d8fa22;
+  transition: background 0.15s, color 0.15s, transform 0.2s;
+}
+#gamesList button:hover, #gamesList button:focus {
+  background: #12d8fa;
+  color: #fff;
+  transform: scale(1.1);
+  outline: none;
 }
 #gameFrame {
   margin-top: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px 0 #12d8fa44;
+  border: 3px solid #12d8fa;
+  display: none;
+  transition: box-shadow 0.5s, border-color 0.5s;
+}
+#gameFrame.active {
+  box-shadow: 0 0 40px 0 #ff512f, 0 0 80px 0 #12d8fa;
+  border-color: #ff512f;
 }
