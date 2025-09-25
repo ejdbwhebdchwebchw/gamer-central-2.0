@@ -1,21 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Game Import Website</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>Game Import Website</h1>
-  <form id="uploadForm">
-    <label for="gameZip">Import a game (zip with index.html):</label>
-    <input type="file" id="gameZip" name="gameZip" accept=".zip" required />
-    <button type="submit">Upload</button>
-  </form>
-  <h2>Available Games</h2>
-  <ul id="gamesList"></ul>
-  <iframe id="gameFrame" style="width:800px; height:600px; border:1px solid #ddd; display:none;"></iframe>
-  <script src="main.js"></script>
-</body>
-</html>
+const API_URL = "http://localhost:3001";
+
+document.getElementById("uploadForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const fileInput = document.getElementById("gameZip");
+  if (!fileInput.files.length) return;
+  const formData = new FormData();
+  formData.append('game', fileInput.files[0]);
+  const res = await fetch(`${API_URL}/api/upload`, {
+    method: 'POST',
+    body: formData
+  });
+  if (res.ok) {
+    alert('Game uploaded!');
+    fileInput.value = '';
+    loadGames();
+  } else {
+    alert('Failed to upload game');
+  }
+};
+
+async function loadGames() {
+  const res = await fetch(`${API_URL}/api/games`);
+  const games = await res.json();
+  const list = document.getElementById("gamesList");
+  list.innerHTML = '';
+  games.forEach(game => {
+    const li = document.createElement('li');
+    li.innerHTML = `<button onclick="playGame('${game}')">${game}</button>`;
+    list.appendChild(li);
+  });
+}
+
+window.playGame = function(gameName) {
+  const frame = document.getElementById('gameFrame');
+  frame.src = `${API_URL}/games/${gameName}`;
+  frame.style.display = 'block';
+};
+
+window.onload = loadGames;{
+  "name": "game-site-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "unzipper": "^0.10.11"
+  }
+}
