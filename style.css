@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background: #f7f9fa;
+}
+h1 {
+  color: #212121;
+}
+form {
+  margin-bottom: 2rem;
+}
+#gamesList li {
+  margin-bottom: 0.5rem;
+}
+#gameFrame {
+  margin-top: 2rem;
+}

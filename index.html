@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Import Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Game Import Website</h1>
+  <form id="uploadForm">
+    <label for="gameZip">Import a game (zip with index.html):</label>
+    <input type="file" id="gameZip" name="gameZip" accept=".zip" required />
+    <button type="submit">Upload</button>
+  </form>
+  <h2>Available Games</h2>
+  <ul id="gamesList"></ul>
+  <iframe id="gameFrame" style="width:800px; height:600px; border:1px solid #ddd; display:none;"></iframe>
+  <script src="main.js"></script>
+</body>
+</html>
