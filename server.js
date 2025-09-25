@@ -57,3 +57,9 @@ app.get('/games/:name', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`);
+});
